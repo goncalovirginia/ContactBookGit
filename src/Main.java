@@ -13,6 +13,7 @@ public class Main {
 	public static final String SET_PHONE      = "SP";
 	public static final String SET_EMAIL      = "SE";
 	public static final String LIST_CONTACTS  = "LC";
+	public static final String EQUAL_PHONES   = "EQ";
 	public static final String QUIT           = "Q";
 	public static final String GET_NAME = "GN";
 	
@@ -26,6 +27,8 @@ public class Main {
 	public static final String QUIT_MSG = "Goodbye!";
 	public static final String COMMAND_ERROR = "Unknown command.";
 	public static final String PHONE_DOES_NOT_EXIST = "Phone number does not exist.";
+	public static final String EQUAL_NUMBERS_EXIST = "There are contacts that share phone numbers.";
+	public static final String NO_EQUAL_NUMBERS_EXIST = "All contacts have different phone numbers.";
 	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -57,6 +60,9 @@ public class Main {
 					break;
 				case GET_NAME:
 					getName(in, cBook);
+					break;
+				case EQUAL_PHONES:
+					equalPhones(cBook);
 					break;
 				default:
 					System.out.println(COMMAND_ERROR);
@@ -165,6 +171,14 @@ public class Main {
 		else {
 			System.out.println(cBook.getName(phone));
 		}
+	}
+
+	private static void equalPhones(ContactBook cBook) {
+		if (cBook.equalContacts())
+			System.out.println(EQUAL_NUMBERS_EXIST);
+		else
+			System.out.println(NO_EQUAL_NUMBERS_EXIST);
+
 	}
 	
 }

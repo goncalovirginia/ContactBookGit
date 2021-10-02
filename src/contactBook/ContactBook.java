@@ -109,4 +109,6 @@ public class ContactBook {
 	public String getName(int phone) {
 		return contacts[searchIndex(phone)].getName();
 	}
+
+	public Boolean equalContacts() { return true; }
 }
