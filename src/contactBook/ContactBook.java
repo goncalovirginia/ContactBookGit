@@ -110,5 +110,11 @@ public class ContactBook {
 		return contacts[searchIndex(phone)].getName();
 	}
 
-	public Boolean equalContacts() { return true; }
+	public Boolean equalContacts() {
+		for(int i=0; i<currentContact; i++)
+			for(int j=i+1; j<currentContact; j++)
+				if(contacts[i].getPhone() == contacts[j].getPhone())
+					return true;
+		return false;
+	}
 }

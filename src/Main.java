@@ -13,7 +13,7 @@ public class Main {
 	public static final String SET_PHONE      = "SP";
 	public static final String SET_EMAIL      = "SE";
 	public static final String LIST_CONTACTS  = "LC";
-	public static final String EQUAL_PHONES   = "EQ";
+	public static final String EQUAL_PHONES   = "EP";
 	public static final String QUIT           = "Q";
 	public static final String GET_NAME = "GN";
 	
