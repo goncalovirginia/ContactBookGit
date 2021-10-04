@@ -1,120 +1,120 @@
 package contactBook;
 
 import contactBook.Contact;
+import exceptions.ContactAlreadyExistsException;
+import exceptions.ContactDoesNotExistException;
+import exceptions.PhoneDoesNotExistException;
+
+import java.util.*;
 
 public class ContactBook {
-	static final int DEFAULT_SIZE = 100;
 	
-	private int counter;
-	private Contact[] contacts;
-	private int currentContact;
+	private List<Contact> contacts;
 	
 	public ContactBook() {
-		counter = 0;
-		contacts = new Contact[DEFAULT_SIZE];
-		currentContact = -1;
+		contacts = new LinkedList<>();
 	}
 	
 	//Pre: name != null
-	public boolean hasContact(String name) {
-		return searchIndex(name) >= 0;
+	private Contact findContact(String name) {
+		for (Contact contact : contacts) {
+			if (contact.getName().equals(name)) {
+				return contact;
+			}
+		}
+		return null;
+	}
+	
+	private Contact findContact(int phone) {
+		for (Contact contact : contacts) {
+			if (contact.getPhone() == phone) {
+				return contact;
+			}
+		}
+		return null;
 	}
 	
 	public int getNumberOfContacts() {
-		return counter;
+		return contacts.size();
 	}
 	
 	//Pre: name!= null && !hasContact(name)
 	public void addContact(String name, int phone, String email) {
-		if (counter == contacts.length)
-			resize();
-		contacts[counter] = new Contact(name, phone, email);
-		counter++;
+		if (findContact(name) != null) {
+			throw new ContactAlreadyExistsException();
+		}
+		contacts.add(new Contact(name, phone, email));
 	}
 	
 	//Pre: name != null && hasContact(name)
 	public void deleteContact(String name) {
-		int index = searchIndex(name);
-		for(int i=index; i<counter; i++)
-			contacts[i] = contacts[i+1];
-		counter--;
+		if (!contacts.removeIf(contact -> contact.getName().equals(name))) {
+			throw new ContactDoesNotExistException();
+		}
 	}
 	
 	//Pre: name != null && hasContact(name)
 	public int getPhone(String name) {
-		return contacts[searchIndex(name)].getPhone();
+		Contact contact = findContact(name);
+		
+		if (contact == null) {
+			throw new ContactDoesNotExistException();
+		}
+		return contact.getPhone();
 	}
 	
 	//Pre: name != null && hasContact(name)
 	public String getEmail(String name) {
-		return contacts[searchIndex(name)].getEmail();
+		Contact contact = findContact(name);
+		
+		if (contact == null) {
+			throw new ContactDoesNotExistException();
+		}
+		return contact.getEmail();
 	}
 	
 	//Pre: name != null && hasContact(name)
 	public void setPhone(String name, int phone) {
-		contacts[searchIndex(name)].setPhone(phone);
+		Contact contact = findContact(name);
+		
+		if (contact == null) {
+			throw new ContactDoesNotExistException();
+		}
+		contact.setPhone(phone);
 	}
 	
 	//Pre: name != null && hasContact(name)
 	public void setEmail(String name, String email) {
-		contacts[searchIndex(name)].setEmail(email);
-	}
-	
-	private int searchIndex(String name) {
-		int i = 0;
-		int result = -1;
-		boolean found = false;
-		while (i<counter && !found)
-			if (contacts[i].getName().equals(name))
-				found = true;
-			else
-				i++;
-		if (found) result = i;
-		return result;
-	}
-	
-	private int searchIndex(int phone) {
-		for (int i = 0; i < counter; i++) {
-			if (contacts[i].getPhone() == phone) {
-				return i;
-			}
+		Contact contact = findContact(name);
+		
+		if (contact == null) {
+			throw new ContactDoesNotExistException();
 		}
-		return -1;
+		contact.setEmail(email);
 	}
 	
-	private void resize() {
-		Contact tmp[] = new Contact[2*contacts.length];
-		for (int i=0;i<counter; i++)
-			tmp[i] = contacts[i];
-		contacts = tmp;
-	}
-	
-	public void initializeIterator() {
-		currentContact = 0;
-	}
-	
-	public boolean hasNext() {
-		return (currentContact >= 0 ) && (currentContact < counter);
-	}
-	
-	//Pre: hasNext()
-	public Contact next() {
-		return contacts[currentContact++];
-	}
-	
-	public boolean hasPhone(int phone) {
-		return searchIndex(phone) >= 0;
+	public Iterator<Contact> getContactIterator() {
+		return contacts.iterator();
 	}
 	
 	public String getName(int phone) {
-		return contacts[searchIndex(phone)].getName();
+		Contact contact = findContact(phone);
+		
+		if (contact == null) {
+			throw new PhoneDoesNotExistException();
+		}
+		return contact.getName();
 	}
 
 	public Boolean equalContacts() {
-		for(int i=0; i<currentContact; i++)
-			for(int j=i+1; j<currentContact; j++)
-				if(contacts[i].getPhone() == contacts[j].getPhone())
-					return true;
+		Set<Integer> visitedPhones = new HashSet<>();
+		
+		for (Contact contact: contacts) {
+			if (visitedPhones.contains(contact.getPhone())) {
+				return true;
+			}
+			visitedPhones.add(contact.getPhone());
+		}
 		return false;
 	}
 }
