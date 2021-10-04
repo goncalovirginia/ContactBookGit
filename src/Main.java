@@ -3,18 +3,23 @@ import contactBook.ContactBook;
 
 import java.util.Scanner;
 
+/**
+ * @author Gonçalo Virgínia (56773)
+ * @author Miguel Real (55677)
+ * @author Gabriela Costa (58625)
+ */
 
 public class Main {
 	//Constantes que definem os comandos
-	public static final String ADD_CONTACT    = "AC";
+	public static final String ADD_CONTACT = "AC";
 	public static final String REMOVE_CONTACT = "RC";
-	public static final String GET_PHONE      = "GP";
-	public static final String GET_EMAIL      = "GE";
-	public static final String SET_PHONE      = "SP";
-	public static final String SET_EMAIL      = "SE";
-	public static final String LIST_CONTACTS  = "LC";
-	public static final String EQUAL_PHONES   = "EP";
-	public static final String QUIT           = "Q";
+	public static final String GET_PHONE = "GP";
+	public static final String GET_EMAIL = "GE";
+	public static final String SET_PHONE = "SP";
+	public static final String SET_EMAIL = "SE";
+	public static final String LIST_CONTACTS = "LC";
+	public static final String EQUAL_PHONES = "EP";
+	public static final String QUIT = "Q";
 	public static final String GET_NAME = "GN";
 	
 	//Constantes que definem as mensagens para o utilizador
@@ -35,25 +40,25 @@ public class Main {
 		ContactBook cBook = new ContactBook();
 		String comm = getCommand(in);
 		
-		while (!comm.equals(QUIT)){
+		while (!comm.equals(QUIT)) {
 			switch (comm) {
 				case ADD_CONTACT:
-					addContact(in,cBook);
+					addContact(in, cBook);
 					break;
 				case REMOVE_CONTACT:
-					deleteContact(in,cBook);
+					deleteContact(in, cBook);
 					break;
 				case GET_PHONE:
-					getPhone(in,cBook);
+					getPhone(in, cBook);
 					break;
 				case GET_EMAIL:
-					getEmail(in,cBook);
+					getEmail(in, cBook);
 					break;
 				case SET_PHONE:
-					setPhone(in,cBook);
+					setPhone(in, cBook);
 					break;
 				case SET_EMAIL:
-					setEmail(in,cBook);
+					setEmail(in, cBook);
 					break;
 				case LIST_CONTACTS:
 					listAllContacts(cBook);
@@ -87,7 +92,8 @@ public class Main {
 		int phone;
 		
 		name = in.nextLine();
-		phone = in.nextInt(); in.nextLine();
+		phone = in.nextInt();
+		in.nextLine();
 		email = in.nextLine();
 		if (!cBook.hasContact(name)) {
 			cBook.addContact(name, phone, email);
@@ -128,9 +134,10 @@ public class Main {
 		String name;
 		int phone;
 		name = in.nextLine();
-		phone = in.nextInt(); in.nextLine();
+		phone = in.nextInt();
+		in.nextLine();
 		if (cBook.hasContact(name)) {
-			cBook.setPhone(name,phone);
+			cBook.setPhone(name, phone);
 			System.out.println(CONTACT_UPDATED);
 		}
 		else System.out.println(NAME_NOT_EXIST);
@@ -142,7 +149,7 @@ public class Main {
 		name = in.nextLine();
 		email = in.nextLine();
 		if (cBook.hasContact(name)) {
-			cBook.setEmail(name,email);
+			cBook.setEmail(name, email);
 			System.out.println(CONTACT_UPDATED);
 		}
 		else {
@@ -153,7 +160,7 @@ public class Main {
 	private static void listAllContacts(ContactBook cBook) {
 		if (cBook.getNumberOfContacts() != 0) {
 			cBook.initializeIterator();
-			while( cBook.hasNext() ) {
+			while (cBook.hasNext()) {
 				Contact c = cBook.next();
 				System.out.println(c.getName() + "; " + c.getEmail() + "; " + c.getPhone());
 			}
@@ -172,13 +179,14 @@ public class Main {
 			System.out.println(cBook.getName(phone));
 		}
 	}
-
+	
 	private static void equalPhones(ContactBook cBook) {
-		if (cBook.equalContacts())
+		if (cBook.equalContacts()) {
 			System.out.println(EQUAL_NUMBERS_EXIST);
-		else
+		}
+		else {
 			System.out.println(NO_EQUAL_NUMBERS_EXIST);
-
+		}
 	}
 	
 }
