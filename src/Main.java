@@ -1,5 +1,6 @@
 import contactBook.Contact;
-import contactBook.ContactBook;
+import contactBook.ContactBookClass;
+import contactBook.ContactClass;
 import exceptions.ContactAlreadyExistsException;
 import exceptions.ContactDoesNotExistException;
 import exceptions.PhoneDoesNotExistException;
@@ -27,10 +28,10 @@ public class Main {
 	public static final String GET_NAME = "GN";
 	
 	//Constantes que definem as mensagens para o utilizador
-	public static final String CONTACT_ADDED = "contactBook.Contact added.";
-	public static final String CONTACT_REMOVED = "contactBook.Contact removed.";
-	public static final String CONTACT_UPDATED = "contactBook.Contact updated.";
-	public static final String BOOK_EMPTY = "contactBook.Contact book empty.";
+	public static final String CONTACT_ADDED = "contactBook.ContactClass added.";
+	public static final String CONTACT_REMOVED = "contactBook.ContactClass removed.";
+	public static final String CONTACT_UPDATED = "contactBook.ContactClass updated.";
+	public static final String BOOK_EMPTY = "contactBook.ContactClass book empty.";
 	public static final String QUIT_MSG = "Goodbye!";
 	public static final String COMMAND_ERROR = "Unknown command.";
 	public static final String EQUAL_NUMBERS_EXIST = "There are contacts that share phone numbers.";
@@ -38,7 +39,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		ContactBook cBook = new ContactBook();
+		ContactBookClass cBook = new ContactBookClass();
 		String comm;
 		
 		do {
@@ -63,7 +64,7 @@ public class Main {
 		in.close();
 	}
 	
-	private static void addContact(Scanner in, ContactBook cBook) {
+	private static void addContact(Scanner in, ContactBookClass cBook) {
 		String name = in.nextLine();
 		int phone = in.nextInt();
 		in.nextLine();
@@ -78,7 +79,7 @@ public class Main {
 		}
 	}
 	
-	private static void deleteContact(Scanner in, ContactBook cBook) {
+	private static void deleteContact(Scanner in, ContactBookClass cBook) {
 		String name = in.nextLine();
 		
 		try {
@@ -90,7 +91,7 @@ public class Main {
 		}
 	}
 	
-	private static void getPhone(Scanner in, ContactBook cBook) {
+	private static void getPhone(Scanner in, ContactBookClass cBook) {
 		String name = in.nextLine();
 		
 		try {
@@ -101,7 +102,7 @@ public class Main {
 		}
 	}
 	
-	private static void getEmail(Scanner in, ContactBook cBook) {
+	private static void getEmail(Scanner in, ContactBookClass cBook) {
 		String name = in.nextLine();
 		
 		try {
@@ -112,7 +113,7 @@ public class Main {
 		}
 	}
 	
-	private static void setPhone(Scanner in, ContactBook cBook) {
+	private static void setPhone(Scanner in, ContactBookClass cBook) {
 		String name = in.nextLine();
 		int phone = in.nextInt();
 		in.nextLine();
@@ -126,7 +127,7 @@ public class Main {
 		}
 	}
 	
-	private static void setEmail(Scanner in, ContactBook cBook) {
+	private static void setEmail(Scanner in, ContactBookClass cBook) {
 		String name = in.nextLine(), email = in.nextLine();
 		
 		try {
@@ -138,7 +139,7 @@ public class Main {
 		}
 	}
 	
-	private static void listAllContacts(ContactBook cBook) {
+	private static void listAllContacts(ContactBookClass cBook) {
 		if (cBook.getNumberOfContacts() == 0) {
 			System.out.println(BOOK_EMPTY);
 		}
@@ -151,7 +152,7 @@ public class Main {
 		}
 	}
 	
-	private static void getName(Scanner in, ContactBook cBook) {
+	private static void getName(Scanner in, ContactBookClass cBook) {
 		int phone = in.nextInt();
 		in.nextLine();
 		
@@ -163,7 +164,7 @@ public class Main {
 		}
 	}
 	
-	private static void equalPhones(ContactBook cBook) {
+	private static void equalPhones(ContactBookClass cBook) {
 		if (cBook.equalContacts()) {
 			System.out.println(EQUAL_NUMBERS_EXIST);
 		}

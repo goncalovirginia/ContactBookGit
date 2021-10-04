@@ -1,120 +1,27 @@
 package contactBook;
 
-import contactBook.Contact;
-import exceptions.ContactAlreadyExistsException;
-import exceptions.ContactDoesNotExistException;
-import exceptions.PhoneDoesNotExistException;
+import java.util.Iterator;
 
-import java.util.*;
-
-public class ContactBook {
+public interface ContactBook {
 	
-	private List<Contact> contacts;
+	int getNumberOfContacts();
 	
-	public ContactBook() {
-		contacts = new LinkedList<>();
-	}
+	void addContact(String name, int phone, String email);
 	
-	//Pre: name != null
-	private Contact findContact(String name) {
-		for (Contact contact : contacts) {
-			if (contact.getName().equals(name)) {
-				return contact;
-			}
-		}
-		return null;
-	}
+	void deleteContact(String name);
 	
-	private Contact findContact(int phone) {
-		for (Contact contact : contacts) {
-			if (contact.getPhone() == phone) {
-				return contact;
-			}
-		}
-		return null;
-	}
+	int getPhone(String name);
 	
-	public int getNumberOfContacts() {
-		return contacts.size();
-	}
+	String getEmail(String name);
 	
-	//Pre: name!= null && !hasContact(name)
-	public void addContact(String name, int phone, String email) {
-		if (findContact(name) != null) {
-			throw new ContactAlreadyExistsException();
-		}
-		contacts.add(new Contact(name, phone, email));
-	}
+	void setPhone(String name, int phone);
 	
-	//Pre: name != null && hasContact(name)
-	public void deleteContact(String name) {
-		if (!contacts.removeIf(contact -> contact.getName().equals(name))) {
-			throw new ContactDoesNotExistException();
-		}
-	}
+	void setEmail(String name, String email);
 	
-	//Pre: name != null && hasContact(name)
-	public int getPhone(String name) {
-		Contact contact = findContact(name);
-		
-		if (contact == null) {
-			throw new ContactDoesNotExistException();
-		}
-		return contact.getPhone();
-	}
+	Iterator<Contact> getContactIterator();
 	
-	//Pre: name != null && hasContact(name)
-	public String getEmail(String name) {
-		Contact contact = findContact(name);
-		
-		if (contact == null) {
-			throw new ContactDoesNotExistException();
-		}
-		return contact.getEmail();
-	}
+	String getName(int phone);
 	
-	//Pre: name != null && hasContact(name)
-	public void setPhone(String name, int phone) {
-		Contact contact = findContact(name);
-		
-		if (contact == null) {
-			throw new ContactDoesNotExistException();
-		}
-		contact.setPhone(phone);
-	}
+	boolean equalContacts();
 	
-	//Pre: name != null && hasContact(name)
-	public void setEmail(String name, String email) {
-		Contact contact = findContact(name);
-		
-		if (contact == null) {
-			throw new ContactDoesNotExistException();
-		}
-		contact.setEmail(email);
-	}
-	
-	public Iterator<Contact> getContactIterator() {
-		return contacts.iterator();
-	}
-	
-	public String getName(int phone) {
-		Contact contact = findContact(phone);
-		
-		if (contact == null) {
-			throw new PhoneDoesNotExistException();
-		}
-		return contact.getName();
-	}
-
-	public Boolean equalContacts() {
-		Set<Integer> visitedPhones = new HashSet<>();
-		
-		for (Contact contact: contacts) {
-			if (visitedPhones.contains(contact.getPhone())) {
-				return true;
-			}
-			visitedPhones.add(contact.getPhone());
-		}
-		return false;
-	}
 }

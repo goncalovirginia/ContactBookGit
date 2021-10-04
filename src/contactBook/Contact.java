@@ -1,38 +1,17 @@
 package contactBook;
 
-public class Contact {
-	private String name;
-	private int phone;
-	private String email;
+public interface Contact {
 	
-	public Contact(String name, int phone, String email) {
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-	}
+	String getName();
 	
-	public String getName() {
-		return name;
-	}
+	int getPhone();
 	
-	public int getPhone() {
-		return phone;
-	}
+	String getEmail();
 	
-	public String getEmail() {
-		return email;
-	}
+	void setPhone(int phone);
 	
-	public void setPhone(int phone) {
-		this.phone = phone;
-	}
+	void setEmail(String email);
 	
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	boolean equals(Contact otherContact);
 	
-	//Pre: otherContact != null
-	public boolean equals(Contact otherContact) {
-		return name.equals(otherContact.getName());
-	}
 }
