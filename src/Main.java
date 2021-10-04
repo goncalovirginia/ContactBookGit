@@ -28,10 +28,10 @@ public class Main {
 	public static final String GET_NAME = "GN";
 	
 	//Constantes que definem as mensagens para o utilizador
-	public static final String CONTACT_ADDED = "contactBook.ContactClass added.";
-	public static final String CONTACT_REMOVED = "contactBook.ContactClass removed.";
-	public static final String CONTACT_UPDATED = "contactBook.ContactClass updated.";
-	public static final String BOOK_EMPTY = "contactBook.ContactClass book empty.";
+	public static final String CONTACT_ADDED = "contactBook.Contact added.";
+	public static final String CONTACT_REMOVED = "contactBook.Contact removed.";
+	public static final String CONTACT_UPDATED = "contactBook.Contact updated.";
+	public static final String BOOK_EMPTY = "contactBook.Contact book empty.";
 	public static final String QUIT_MSG = "Goodbye!";
 	public static final String COMMAND_ERROR = "Unknown command.";
 	public static final String EQUAL_NUMBERS_EXIST = "There are contacts that share phone numbers.";
